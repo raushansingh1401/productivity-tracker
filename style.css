@@ -5,6 +5,43 @@ body {
   background-color: #f9f9f9;
 }
 
+h1 {
+  margin-bottom: 10px;
+}
+
+#user-controls {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#user-controls input,
+#user-controls button,
+#user-controls select {
+  padding: 8px;
+  font-size: 1rem;
+}
+
+#calendar-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 10px 0;
+}
+
+#calendar-controls button {
+  padding: 6px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#monthYear {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 #calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -19,6 +56,7 @@ body {
   cursor: pointer;
   background-color: white;
   transition: background-color 0.3s ease;
+  min-height: 50px;
 }
 
 .day.green {
@@ -31,18 +69,4 @@ body {
 
 .day.red {
   background-color: #ef9a9a;
-}
-
-#user‑controls {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-#user‑controls input,
-#user‑controls button,
-#user‑controls select {
-  padding: 8px;
-  font-size: 1rem;
 }

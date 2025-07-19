@@ -2,11 +2,17 @@ const calendarDiv = document.getElementById("calendar");
 const userList = document.getElementById("userList");
 const newUsernameInput = document.getElementById("newUsername");
 const createUserBtn = document.getElementById("createUser");
+const monthYearDisplay = document.getElementById("monthYear");
 
-// User-related state
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let currentUser = localStorage.getItem("currentUser") || null;
 let marks = {};
+let currentDate = new Date(); // Tracks the displayed month
+
+// Format date as YYYY-MM-DD
+const pad = (n) => n.toString().padStart(2, "0");
+const formatDateKey = (year, month, day) =>
+  `${year}-${pad(month)}-${pad(day)}`;
 
 // Load marks from localStorage for the selected user
 function loadMarks() {
@@ -65,23 +71,24 @@ userList.addEventListener("change", (e) => {
 function renderCalendar() {
   if (!currentUser) {
     calendarDiv.innerHTML = "<p>Please create or select a user first.</p>";
+    monthYearDisplay.textContent = "";
     return;
   }
 
   calendarDiv.innerHTML = "";
 
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth(); // 0 = Jan
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
 
-  // Show current month & year (optional)
-  const heading = document.createElement("h2");
-  heading.textContent = today.toLocaleString("default", { month: "long", year: "numeric" });
-  calendarDiv.appendChild(heading);
+  // Show month and year
+  const monthYearStr = currentDate.toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
+  monthYearDisplay.textContent = monthYearStr;
 
-  // Weekday headers
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  weekdays.forEach(day => {
+  weekdays.forEach((day) => {
     const header = document.createElement("div");
     header.className = "day";
     header.style.fontWeight = "bold";
@@ -89,18 +96,16 @@ function renderCalendar() {
     calendarDiv.appendChild(header);
   });
 
-  // Actual calendar days
-  const firstDay = new Date(year, month, 1).getDay(); // 0 = Sunday
-  const daysInMonth = new Date(year, month + 1, 0).getDate(); // Last day of current month
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  // Empty cells before the first day
   for (let i = 0; i < firstDay; i++) {
     const empty = document.createElement("div");
     calendarDiv.appendChild(empty);
   }
 
   for (let day = 1; day <= daysInMonth; day++) {
-    const dateKey = `${year}-${month + 1}-${day}`;
+    const dateKey = formatDateKey(year, month + 1, day);
     const box = document.createElement("div");
     box.className = "day";
     box.innerText = day;
@@ -133,10 +138,18 @@ function renderCalendar() {
   }
 }
 
+// Navigation Buttons
+document.getElementById("prevMonth").addEventListener("click", () => {
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  renderCalendar();
+});
 
-// Initial load
+document.getElementById("nextMonth").addEventListener("click", () => {
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  renderCalendar();
+});
+
+// Initial Setup
 refreshUserList();
-if (currentUser) {
-  loadMarks();
-}
+if (currentUser) loadMarks();
 renderCalendar();
