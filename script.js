@@ -74,16 +74,31 @@ function renderCalendar() {
   const year = today.getFullYear();
   const month = today.getMonth(); // 0 = Jan
 
-  const firstDay = new Date(year, month, 1).getDay(); // 0 = Sun
-  const daysInMonth = new Date(year, month + 1, 0).getDate(); // Last day of month
+  // Show current month & year (optional)
+  const heading = document.createElement("h2");
+  heading.textContent = today.toLocaleString("default", { month: "long", year: "numeric" });
+  calendarDiv.appendChild(heading);
 
-  // Empty cells before first day
+  // Weekday headers
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  weekdays.forEach(day => {
+    const header = document.createElement("div");
+    header.className = "day";
+    header.style.fontWeight = "bold";
+    header.textContent = day;
+    calendarDiv.appendChild(header);
+  });
+
+  // Actual calendar days
+  const firstDay = new Date(year, month, 1).getDay(); // 0 = Sunday
+  const daysInMonth = new Date(year, month + 1, 0).getDate(); // Last day of current month
+
+  // Empty cells before the first day
   for (let i = 0; i < firstDay; i++) {
     const empty = document.createElement("div");
     calendarDiv.appendChild(empty);
   }
 
-  // Actual days
   for (let day = 1; day <= daysInMonth; day++) {
     const dateKey = `${year}-${month + 1}-${day}`;
     const box = document.createElement("div");
@@ -117,6 +132,7 @@ function renderCalendar() {
     calendarDiv.appendChild(box);
   }
 }
+
 
 // Initial load
 refreshUserList();
