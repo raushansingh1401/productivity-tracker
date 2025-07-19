@@ -1,0 +1,48 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+  background-color: #f9f9f9;
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.day {
+  border: 1px solid #ccc;
+  padding: 20px;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.day.green {
+  background-color: #b5e7a0;
+}
+
+.day.yellow {
+  background-color: #fff59d;
+}
+
+.day.red {
+  background-color: #ef9a9a;
+}
+
+#user‑controls {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#user‑controls input,
+#user‑controls button,
+#user‑controls select {
+  padding: 8px;
+  font-size: 1rem;
+}
