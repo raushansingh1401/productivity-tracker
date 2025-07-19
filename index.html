@@ -2,26 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daily Productivity Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Productivity Calendar</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>📅 My Productivity Calendar</h1>
+  <div class="container">
+    <h1>🗓️ Productivity Tracker</h1>
 
-  <div id="user-controls">
-    <input type="text" id="newUsername" placeholder="Enter username" />
-    <button id="createUser">Create/Switch User</button>
-    <select id="userList"></select>
+    <!-- User Switcher -->
+    <div class="user-switcher">
+      <label for="userSelect">User:</label>
+      <select id="userSelect">
+        <option value="User1">Raushan</option>
+        <option value="User2">Smriti</option>
+      </select>
+    </div>
+
+    <!-- Month Navigation -->
+    <div class="calendar-header">
+      <button id="prevMonth">⬅</button>
+      <h2 id="monthYear"></h2>
+      <button id="nextMonth">➡</button>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="calendar">
+      <div class="day-names">
+        <div>Sun</div><div>Mon</div><div>Tue</div>
+        <div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+      <div id="days" class="days-grid"></div>
+    </div>
+    <p>Click on a day to mark as <span class="green">Green</span>, <span class="yellow">Yellow</span>, or <span class="red">Red</span>.</p>
   </div>
-
-  <div id="calendar-controls">
-    <button id="prevMonth">⬅</button>
-    <span id="monthYear"></span>
-    <button id="nextMonth">➡</button>
-  </div>
-
-  <div id="calendar"></div>
 
   <script src="script.js"></script>
 </body>
